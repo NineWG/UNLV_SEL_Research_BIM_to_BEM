@@ -1,4 +1,4 @@
-# LLM-Assisted BIM2BEM
+# LLM-driven Building Energy Informatics for BIM-to-BEM
 
 This repository contains the reproducibility materials for an LLM-assisted
 building information modeling to building energy modeling (BIM2BEM) workflow.
