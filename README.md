@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Agentic AI-Assisted BIM-to-BEM Conversion
-=======
-# LLM-driven Building Energy Informatics for BIM-to-BEM
->>>>>>> dfbe7e693df53280c29fa72c172fe7e234b1fd3f
 
 This repository provides the reproducibility materials for an agentic
 AI-assisted, human-supervised workflow that converts IFC building information
