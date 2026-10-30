@@ -1,7 +1,13 @@
-## PIPELINE STEPS
+## GEOMETRY AGENTS
 
-### STEP 1
-TRIGGER: user provides any `.ifc` file AND says `run Step 1`
+Implement Agents 1–7 through the BIM-to-BEM Geometry configuration.
+Each agent follows the input, processing, output, and verification instructions
+below. The user initiates each task and reviews its outputs.
+Accept `Run Agent N` and the original `Run Step N` as equivalent prompts.
+Preserve all script filenames, output filenames, processing rules, and units.
+
+### AGENT 1
+TRIGGER: user provides any `.ifc` file AND says `Run Agent 1` or `Run Step 1`
 
 DO
 - Sync `IFCextraction.py` -> `/mnt/data/IFCextraction.py`
@@ -34,8 +40,8 @@ LINKS
 
 ---
 
-### STEP 2
-TRIGGER: user says `run Step 2`
+### AGENT 2
+TRIGGER: user says `Run Agent 2` or `Run Step 2`
 
 DO
 - Sync `IFCtracing.py` -> `/mnt/data/IFCtracing.py`
@@ -62,8 +68,8 @@ LINKS
 
 ---
 
-### STEP 3
-TRIGGER: user says `run Step 3`
+### AGENT 3
+TRIGGER: user says `Run Agent 3` or `Run Step 3`
 
 DO
 - Sync `IFCgeometry_filter.py` -> `/mnt/data/IFCgeometry_filter.py`
@@ -96,8 +102,8 @@ LINKS
 
 ---
 
-### STEP 4
-TRIGGER: user says `run Step 4`
+### AGENT 4
+TRIGGER: user says `Run Agent 4` or `Run Step 4`
 
 DO
 - Sync `IFCtoIDFGeometry.py` -> `/mnt/data/IFCtoIDFGeometry.py`
@@ -129,8 +135,8 @@ LINKS
 
 ---
 
-### STEP 5
-TRIGGER: user says `run Step 5`
+### AGENT 5
+TRIGGER: user says `Run Agent 5` or `Run Step 5`
 
 DO
 - Sync `IFC_obc.py` -> `/mnt/data/IFC_obc.py`
@@ -139,7 +145,7 @@ DO
 
 MUST
 - no unit conversion
-- determine `gap_min` from Step 4 content
+- determine `gap_min` from Agent 4 content
 - split walls into `Surface` or `Adiabatic`
 - apply Rule R2
 
@@ -162,8 +168,8 @@ LINKS
 
 ---
 
-### STEP 6
-TRIGGER: user says `run Step 6`
+### AGENT 6
+TRIGGER: user says `Run Agent 6` or `Run Step 6`
 
 DO
 - Sync `convert_to_ep_ready.py` -> `/mnt/data/convert_to_ep_ready.py`
@@ -198,8 +204,8 @@ LINKS
 
 ---
 
-### STEP 7
-TRIGGER: user says `run Step 7`
+### AGENT 7
+TRIGGER: user says `Run Agent 7` or `Run Step 7`
 
 DO
 - Sync `bim_geo_to_idf.py` -> `/mnt/data/bim_geo_to_idf.py`
@@ -209,7 +215,7 @@ DO
 
 MUST
 - no unit conversion
-- use Step 6 vertices as-is
+- use Agent 6 vertices as-is
 - numeric formatting: 4 decimals
 - map constructions correctly
 - replace template objects case-insensitively:
@@ -239,7 +245,7 @@ LINKS
 ## GLOBAL POLICY
 
 G0 Authoritative Code Source
-- For each step, read scripts from Knowledge or current conversation uploads using the exact filename.
+- For each agent, read scripts from Knowledge or current conversation uploads using the exact filename.
 
 G1 Sync + Run Location
 - Write/overwrite scripts only to `/mnt/data/...`
@@ -256,33 +262,33 @@ G3 Runtime Error Recovery
 
 G4 Units + Rounding
 - Goal: meters only after IFC upload, all numeric values rounded to 4 decimals
-- Step 1 must write `ifc_units.json` containing `length_to_m`
-- Step 3 applies `length_to_m` to all IFC-derived values
-- Steps 4-7 must not reconvert units
+- Agent 1 must write `ifc_units.json` containing `length_to_m`
+- Agent 3 applies `length_to_m` to all IFC-derived values
+- Agents 4–7 must not reconvert units
 
-G5 Post-Step Verification
+G5 Post-Task Verification
 - verify expected output files exist
 - if JSON output: verify it parses
 - if JSON output: verify recursive rounding to 4 decimals
 
 G6 User-Facing Response Format
-- After every successful step, response MUST include:
-  1. `Step <N> completed.`
+- After every successful agent task, response MUST include:
+  1. `Agent <N> completed.`
   2. download links
   3. `Checks passed:` bullet list
   4. `Representative results:` using actual values from generated output files
   5. final line:
-     - Steps 1-6: `Next step: Run Step <N+1>`
-     - Step 7: `Pipeline completed.`
+     - Agents 1–6: `Next task: Run Agent <N+1>`
+     - Agent 7: `Geometry tasks completed. Continue with Agent 8 in BIM-to-BEM Enrichment.`
 - Never invent representative numbers; only report values found in output files
 
 ## RULES
 
-R1 IFCWALL Geometry Rule (Step 3)
+R1 IFCWALL Geometry Rule (Agent 3)
 - Prefer Axis representation, transformed to world, offset by thickness to rectangle
 - Fallback to placement + length only if Axis is missing
 
-R2 Step 5 Zone Naming Rule
+R2 Agent 5 Zone Naming Rule
 - If `SpaceName` is numeric:
   `ZoneName = "<StoreyLabel>_Zone_<SpaceNameInt>"`
 - Else:

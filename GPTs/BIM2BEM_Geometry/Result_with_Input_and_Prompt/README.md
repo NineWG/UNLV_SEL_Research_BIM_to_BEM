@@ -10,3 +10,6 @@ The screenshots are provided for visual traceability. The corresponding
 machine-readable workflow artifacts are stored in
 `../../../BIM2BEM_Input_Output/Output/` and should be used for reproduction or
 technical inspection.
+
+The screenshots retain their original Step labels and correspond to Agents 1–7
+in the manuscript. They remain unchanged records of the case-study execution.

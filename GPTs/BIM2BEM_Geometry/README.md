@@ -1,21 +1,22 @@
 # BIM2BEM Geometry GPT
 
 This package contains the configuration materials for the custom GPT that
-processes IFC geometry and generates the initial EnergyPlus IDF.
+implements Agents 1–7 for IFC geometry processing and initial EnergyPlus
+IDF generation.
 
 ## Included Materials
 
 - BIM2BEM_Geo_Instructions.txt: primary workflow instructions.
 - basic_setup.txt: initial IDF template and setup content.
-- IFCextraction.py: Step 1 IFC entity extraction.
-- IFCtracing.py: Step 2 IFC relationship tracing.
-- IFCgeometry_filter.py: Step 3 geometry filtering and attributes.
-- IFCtoIDFGeometry.py: Step 4 IDF-ready surface generation.
-- IFC_obc.py: Step 5 boundary-condition assignment and surface matching.
-- convert_to_ep_ready.py: Step 6 EnergyPlus vertex-order conversion.
-- bim_geo_to_idf.py: Step 7 initial IDF generation.
+- IFCextraction.py: Agent 1 IFC entity extraction.
+- IFCtracing.py: Agent 2 IFC relationship tracing.
+- IFCgeometry_filter.py: Agent 3 geometry filtering and attributes.
+- IFCtoIDFGeometry.py: Agent 4 IDF-ready surface generation.
+- IFC_obc.py: Agent 5 boundary-condition assignment and surface matching.
+- convert_to_ep_ready.py: Agent 6 EnergyPlus vertex-order conversion.
+- bim_geo_to_idf.py: Agent 7 initial IDF generation.
 - Result_with_Input_and_Prompt/: case-study screenshots for the prompts and
-  outputs of Steps 1-7.
+  outputs of Agents 1–7.
 
 ## Custom GPT Setup
 
@@ -31,6 +32,12 @@ IFC input file such as
 ## Example Prompts and Outputs
 
 The screenshots in `Result_with_Input_and_Prompt/` visually document the
-case-study interactions and outputs for Steps 1-7. They supplement, rather
+case-study interactions and outputs for Agents 1–7. They supplement, rather
 than replace, the machine-readable artifacts in
 `../../BIM2BEM_Input_Output/Output/`.
+
+## Invocation and Recorded Labels
+
+Use `Run Agent N` to initiate a geometry task. The original `Run Step N`
+prompts remain accepted aliases. Recorded screenshots and output filenames
+retain their original Step labels, corresponding to Agents 1–7.

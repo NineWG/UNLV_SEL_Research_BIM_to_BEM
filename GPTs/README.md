@@ -1,40 +1,53 @@
-# Custom GPT Workflow Packages
+# Agentic AI-Assisted Workflow Configurations
 
-This directory contains the documented configuration materials for the two
-custom GPT workflows used by the case study.
+This directory contains the configuration materials for the eight agents used
+in the case study, implemented through two customized GPT configurations.
 
-| Directory | Role |
-| --- | --- |
-| BIM2BEM_Geometry | Extracts and processes IFC geometry, assigns boundary conditions, and produces an initial IDF. |
-| BIM2BEM_Enrichment | Enriches the initial IDF with traceable energy-related input parameters and validates simulation readiness. |
+| Directory | Agents | Responsibility |
+| --- | --- | --- |
+| BIM2BEM_Geometry | Agents 1–7 | IFC extraction and tracing, geometry processing, boundary assignment, and initial IDF generation. |
+| BIM2BEM_Enrichment | Agent 8 | Traceable energy-input enrichment and model-readiness checks. |
 
-## Sequential Configuration Design
+## Configuration Design
 
-The case-study workflow uses two sequential custom GPT configurations. The
-Geometry GPT produces the initial IDF and the intermediate geometry evidence;
-the Enrichment GPT then uses these artifacts to supplement non-geometric
-energy inputs and check simulation readiness. The split was a practical
-configuration decision because the combined workflow rules exceeded the
-instruction-field capacity used for a single configuration in the case study.
-It is not a multi-agent architecture: the handoff occurs through explicit
-intermediate files and user-supervised stages.
+Each agent follows instructions specifying its inputs, processing tools,
+expected outputs, verification requirements, and permitted corrective actions.
+The user initiates tasks, reviews intermediate outputs, and guides corrections.
+The Geometry configuration executes reusable processing scripts, with code
+adaptation or repair when necessary. The Enrichment configuration interprets
+available information and selects applicable inputs through the prescribed
+source hierarchy. Information passes between configurations through explicit
+intermediate files.
+
+The two configurations were used because the combined geometry-processing and
+enrichment rules exceeded the instruction-field capacity of a single
+configuration in the case study.
 
 ## Reconstructing the Configurations
 
-For each workflow, create a custom GPT and use the applicable instruction file
-and companion knowledge files from its directory. Enable Code Interpreter and
-Data Analysis. Enable Web Search for the enrichment workflow when official
-prototype, code, or reference sources must be consulted.
+For each configuration, use the applicable instruction file and companion
+knowledge files from its directory. Enable Code Interpreter and Data Analysis.
+Enable Web Search for enrichment when official prototype, code, or reference
+sources must be consulted.
 
-The included files document the configuration used for the case study. A custom
-GPT deployment can change as the underlying ChatGPT product evolves; therefore,
-the instruction and knowledge files are retained here as the reproducibility
-record.
+The included files document the case-study configuration and its agent labels.
+A custom GPT deployment can change as the underlying ChatGPT product evolves;
+the instruction files, scripts, and stored artifacts support reconstruction
+and inspection of the workflow.
+
+## Agent Numbering and Compatibility
+
+Geometry instructions accept `Run Agent 1` through `Run Agent 7` and retain
+the corresponding `Run Step N` prompts as aliases. Agent 8 uses the initial
+IDF, original IFC, processed geometry evidence, building type, and location.
+The enrichment files named `BIM2BEM_Step_00_...` through
+`BIM2BEM_Step_08_...` define internal procedures within Agent 8. They are not
+the workflow's Agents 1–8.
 
 ## Example Prompts and Outputs
 
-`BIM2BEM_Geometry/Result_with_Input_and_Prompt/` contains screenshots for
-Steps 1-7, and `BIM2BEM_Enrichment/Result_with_Input_and_Prompt/` contains the
-Step 8 screenshot. These images illustrate the reported case-study interaction;
-use the accompanying machine-readable scripts and workflow artifacts for
-reproduction.
+`BIM2BEM_Geometry/Result_with_Input_and_Prompt/` contains the recorded
+interactions for Agents 1–7, and
+`BIM2BEM_Enrichment/Result_with_Input_and_Prompt/` contains the interaction
+for Agent 8. The screenshots retain the original Step labels. Use the
+accompanying machine-readable scripts and workflow artifacts for reproduction.
